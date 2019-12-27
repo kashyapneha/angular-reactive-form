@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { 
+  ReactiveFormsModule,
+  FormsModule, 
+  FormGroup, 
+  FormControl, 
+  Validators,
+  FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'reactive-form',
   template: `
+  <div class="container">
     <form [formGroup]="myform">
       <fieldset formGroupName="name">
         <div class="form-group"
             [ngClass]="{
-            'has-danger': firstName.invalid && (firstName.dirty || firstName.touched),
-            'has-success': firstName.valid && (firstName.dirty || firstName.touched)
+            'is-invalid': firstName.invalid && (firstName.dirty || firstName.touched),
+            'is-valid': firstName.valid && (firstName.dirty || firstName.touched)
           }">
           <label>First Name</label>
           <input 
@@ -89,9 +96,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
           <option *ngFor="let lang of langs" [value]="lang">{{ lang }}</option>
         </select>
       </div>
-    </form>
 
-    <pre>{{ myform.value | json }}</pre>
+      <pre>{{ myform.value | json }}</pre>
+    </form>
+  </div>
   `
 })
 export class ReactiveFormComponent implements OnInit {
