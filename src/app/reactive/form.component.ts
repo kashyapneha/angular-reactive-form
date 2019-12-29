@@ -11,15 +11,15 @@ import {
   selector: 'reactive-form',
   template: `
   <div class="container">
-    <form [formGroup]="myform">
+    <form [formGroup]="myform" (ngSubmit)="onSubmit()">
       <fieldset formGroupName="name">
-        <div class="form-group"
+        <div class="form-group">
+          <label>First Name</label>
+          <input 
             [ngClass]="{
             'is-invalid': firstName.invalid && (firstName.dirty || firstName.touched),
             'is-valid': firstName.valid && (firstName.dirty || firstName.touched)
-          }">
-          <label>First Name</label>
-          <input 
+          }"
             class="form-control" 
             type="text"
             formControlName="firstName"
@@ -30,13 +30,13 @@ import {
           </div>
         </div>
         
-        <div class="form-group"
-            [ngClass]="{
-            'has-danger': lastName.invalid && (lastName.dirty || lastName.touched),
-            'has-success': lastName.valid && (lastName.dirty || lastName.touched)
-          }">
+        <div class="form-group">
           <label>Last Name</label>
           <input 
+            [ngClass]="{
+            'is-invalid': lastName.invalid && (lastName.dirty || lastName.touched),
+            'is-valid': lastName.valid && (lastName.dirty || lastName.touched)
+          }"
             class="form-control" 
             type="text"
             formControlName="lastName"
@@ -49,13 +49,13 @@ import {
       </fieldset>
 
       <div 
-        class="form-group"
-        [ngClass]="{
-          'is-valid': email.valid && (email.dirty || email.touched),
-          'is-invalid': email.invalid && (email.dirty || email.touched)
-        }">
+        class="form-group">
         <label>Email</label>
         <input 
+          [ngClass]="{
+          'is-valid': email.valid && (email.dirty || email.touched),
+          'is-invalid': email.invalid && (email.dirty || email.touched)
+        }"
           class="form-control" 
           type="email"
           formControlName="email"
@@ -67,13 +67,13 @@ import {
         </div>
       </div>
 
-      <div class="form-group"
+      <div class="form-group">
+        <label>Password</label>
+        <input 
           [ngClass]="{
             'is-invalid': password.invalid && (password.dirty || password.touched),
             'is-valid': password.valid && (password.dirty || password.touched)
-          }">
-        <label>Password</label>
-        <input 
+          }"
           class="form-control" 
           type="password"
           formControlName="password"
@@ -85,17 +85,25 @@ import {
         </div>
       </div>
 
-      <div class="form-group"
-          [ngClass]="{
-            'has-danger': language.invalid && (language.dirty || language.touched),
-            'has-success': language.valid && (language.dirty || language.touched)
-          }">
+      <div class="form-group">
         <label>Language</label>
-        <select class="form-control" formControlName="language">
-          <option value="">Please select a language</option>
-          <option *ngFor="let lang of langs" [value]="lang">{{ lang }}</option>
+        <select
+          [ngClass]="{
+            'is-invalid': language.invalid && (language.dirty || language.touched),
+            'is-valid': language.valid && (language.dirty || language.touched)
+          }" 
+          class="form-control" 
+          formControlName="language">
+            <option value="">Please select a language</option>
+            <option *ngFor="let lang of langs" [value]="lang">{{ lang }}</option>
         </select>
       </div>
+
+      <button 
+        type="submit" 
+        class="btn btn-primary" 
+        [disabled]="!myform.valid"
+        (click)="onSubmit()">Submit</button>
 
       <pre>{{ myform.value | json }}</pre>
     </form>
@@ -141,5 +149,10 @@ export class ReactiveFormComponent implements OnInit {
       password: this.password,
       language: this.language
     })
+  }
+
+  onSubmit() {
+    console.log("Form Submitted", this.myform.value);
+    this.myform.reset();
   }
 }
