@@ -24,9 +24,9 @@ import {
             type="text"
             formControlName="firstName"
             required>
-          <div class="form-control-feedback"
+          <div class="alert alert-danger"
            *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
-          <p *ngIf="firstName.errors.required">First Name is required</p>
+          <p *ngIf="firstName.errors.required">First Name is required!</p>
           </div>
         </div>
         
@@ -41,9 +41,9 @@ import {
             type="text"
             formControlName="lastName"
             required>
-          <div class="form-control-feedback"
+          <div class="alert alert-danger"
            *ngIf="lastName.errors && (lastName.dirty || lastName.touched)">
-          <p *ngIf="lastName.errors.required">Last Name is required</p>
+          <p *ngIf="lastName.errors.required">Last Name is required!</p>
           </div>
         </div>
       </fieldset>
@@ -60,10 +60,10 @@ import {
           type="email"
           formControlName="email"
           required>
-        <div class="form-control-feedback"
+        <div class="alert alert-danger"
          *ngIf="email.errors && (email.dirty || email.touched)">
           <p *ngIf="email.errors.required">Email is required</p>
-          <p *ngIf="password.errors.pattern">The email address must contain at least the @ character</p>
+          <p *ngIf="password.errors.pattern">The email address must contain at least the @ character!</p>
         </div>
       </div>
 
@@ -78,10 +78,10 @@ import {
           type="password"
           formControlName="password"
           required>
-        <div class="form-control-feedback"
+        <div class="alert alert-danger"
          *ngIf="password.errors && (password.dirty || password.touched)">
           <p *ngIf="password.errors.required">Password is required</p>
-          <p *ngIf="password.errors.minlength">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength - password.errors.minlength.actualLength}} characters </p>
+          <p *ngIf="password.errors.minlength">Password must be 8 characters long, we need another {{password.errors.minlength.requiredLength - password.errors.minlength.actualLength}} characters! </p>
         </div>
       </div>
 
